@@ -4,6 +4,7 @@ import "./Tickets.css"
 export const TicketList = () => {
     const [tickets, setTickets] = useState([])
     const [filteredTickets, setFilteredTickets] = useState([])
+    const [emergency, setEmergency] = useState(false) // We don't want to show only emergency by default, so we set it to false
 
     const localHoneyUser = localStorage.getItem("honey_user")
     const honeyUserObject = JSON.parse(localHoneyUser)
@@ -33,7 +34,28 @@ export const TicketList = () => {
         [tickets]
     )
 
+    useEffect(
+        () => {
+            if (emergency) {
+                const emergencyTickets = tickets.filter(ticket => ticket.emergency === true)
+                setFilteredTickets(emergencyTickets)
+            } else {
+                setFilteredTickets(tickets)
+            }
+        },
+        [emergency]
+    )
+
     return <>
+        {
+            honeyUserObject.staff
+                ? <>
+                    <button onClick={ () => {setEmergency(true)} }>Emergency Only</button>
+                    <button onClick={ () => {setEmergency(false)} }>Show All</button>
+                </>
+                : ""
+        }
+
         <h2>List of Tickets</h2>
 
         <article className="tickets">
