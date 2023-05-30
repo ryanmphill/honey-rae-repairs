@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import "./Tickets.css"
 
 export const TicketList = () => {
     const [tickets, setTickets] = useState([])
     const [filteredTickets, setFilteredTickets] = useState([])
     const [emergency, setEmergency] = useState(false) // We don't want to show only emergency by default, so we set it to false
+    const navigate = useNavigate()
 
     const localHoneyUser = localStorage.getItem("honey_user")
     const honeyUserObject = JSON.parse(localHoneyUser)
@@ -48,12 +50,12 @@ export const TicketList = () => {
 
     return <>
         {
-            honeyUserObject.staff
+            honeyUserObject.staff // If the current user is staff, show the filter buttons, else, show create ticket button
                 ? <>
                     <button onClick={ () => {setEmergency(true)} }>Emergency Only</button>
                     <button onClick={ () => {setEmergency(false)} }>Show All</button>
                 </>
-                : ""
+                : <button onClick={() => navigate("/ticket/create")}>Create Ticket</button>
         }
 
         <h2>List of Tickets</h2>
