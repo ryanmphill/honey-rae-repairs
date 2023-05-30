@@ -6,6 +6,7 @@ export const TicketList = () => {
     const [tickets, setTickets] = useState([])
     const [filteredTickets, setFilteredTickets] = useState([])
     const [emergency, setEmergency] = useState(false) // We don't want to show only emergency by default, so we set it to false
+    const [openOnly, updateOpenOnly] = useState(false)
     const navigate = useNavigate()
 
     const localHoneyUser = localStorage.getItem("honey_user")
@@ -48,6 +49,23 @@ export const TicketList = () => {
         [emergency]
     )
 
+    useEffect(
+        () => {
+            if (openOnly) {
+                const openTickets = tickets.filter(
+                    (ticket) => {
+                        return ticket.dateCompleted === "" && ticket.userId === honeyUserObject.id
+                    }
+                )
+                setFilteredTickets(openTickets)
+            } else {
+                const myTickets = tickets.filter(ticket => ticket.userId === honeyUserObject.id)
+                setFilteredTickets(myTickets)
+            }
+        },
+        [openOnly]
+    )
+
     return <>
         {
             honeyUserObject.staff // If the current user is staff, show the filter buttons, else, show create ticket button
@@ -55,7 +73,11 @@ export const TicketList = () => {
                     <button onClick={ () => {setEmergency(true)} }>Emergency Only</button>
                     <button onClick={ () => {setEmergency(false)} }>Show All</button>
                 </>
-                : <button onClick={() => navigate("/ticket/create")}>Create Ticket</button>
+                : <>
+                    <button onClick={ () => navigate("/ticket/create") }>Create Ticket</button>
+                    <button onClick={ () => updateOpenOnly(true) }>Open Tickets</button>
+                    <button onClick={ () => updateOpenOnly(false) }>All My Tickets</button>
+                </>
         }
 
         <h2>List of Tickets</h2>
