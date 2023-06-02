@@ -1,0 +1,18 @@
+.employees {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    column-gap: 1rem;
+    row-gap: 1rem;
+    margin-top: 1rem;
+}
+
+.employee {
+    background-color: hotpink;
+    border: 2px dotted fuchsia;
+    border-radius: 10px;
+    color: rgb(24, 24, 24);
+    flex-basis: 40%;
+    padding: 0.5rem;
+}
