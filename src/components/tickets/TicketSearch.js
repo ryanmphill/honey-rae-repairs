@@ -1,7 +1,7 @@
 export const TicketSearch = ({setterFunction}) => {
     return (
         <div>
-            <input 
+            <input id="ticketSearchBar"
             onChange={
                 (changeEvent) => {
                     setterFunction(changeEvent.target.value)
