@@ -29,10 +29,10 @@ export const EmployeeDetails = () => {
     return <>
         <section className="employee">
             <header className="employee__header">{employee?.user?.fullName}</header>
-            <div>Email: {employee?.user?.email}</div>
-            <div>Specialty: {employee?.specialty}</div>
-            <div>Rate: ${employee?.rate?.toFixed(2)}</div>
-            <footer className="employee__footer">Currently working on {employee?.employeeTickets?.length} tickets</footer>
+            <div>Email: {employee?.user?.email ?? "Employee email not on file"}</div>
+            <div>Specialty: {employee?.specialty || "Employee specialty not on file"}</div>
+            <div>Rate: ${employee?.rate?.toFixed(2) || "Employee pay rate not on file"}</div>
+            <footer className="employee__footer">Currently working on {employee?.employeeTickets?.length || "UNKNOWN"} tickets</footer>
         </section>
     </>
 }
