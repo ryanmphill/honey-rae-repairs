@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import "./Tickets.css"
+import { Ticket } from "./Ticket"
 
 export const TicketList = ({ searchTermState }) => {
     const [tickets, setTickets] = useState([])
@@ -96,15 +97,7 @@ export const TicketList = ({ searchTermState }) => {
         <article className="tickets">
             {
                 filteredTickets.map(
-                    (ticket) => {
-                        return <section className="ticket" key={`ticket--${ticket.id}`}>
-                            <header>
-                                <Link to={`/tickets/${ticket.id}/edit`}>Ticket {ticket.id}</Link>
-                            </header>
-                            <section>{ticket.description}</section>
-                            <footer>Emergency: {ticket.emergency ? "🧨" : "No"}</footer>
-                        </section>
-                    }
+                    (ticket) => <Ticket isStaff={honeyUserObject.staff} ticketObject={ticket} key={`ticket--${ticket.id}`} />
                 )
             }
 
