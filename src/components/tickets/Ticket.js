@@ -1,6 +1,12 @@
 import { Link } from "react-router-dom"
 
-export const Ticket = ({ ticketObject, isStaff }) => {
+export const Ticket = ({ ticketObject, isStaff, employees }) => {
+
+    let assignedEmployee = null
+    if (ticketObject.employeeTickets.length > 0) {
+        const employeeTicketObject = ticketObject.employeeTickets[0]
+        assignedEmployee = employees.find(employee => employee.id === employeeTicketObject.employeeId)
+    }
 
     return <>
         <section className="ticket">
@@ -12,7 +18,14 @@ export const Ticket = ({ ticketObject, isStaff }) => {
                 }
             </header>
             <section>{ticketObject.description}</section>
-            <footer>Emergency: {ticketObject.emergency ? "🧨" : "No"}</footer>
+            <section>Emergency: {ticketObject.emergency ? "🧨" : "No"}</section>
+            <footer>
+                {
+                    ticketObject.employeeTickets.length !== 0
+                     ? `Currently being worked on ${assignedEmployee !== null ? "by " + assignedEmployee.user.fullName : ""}`
+                     : <button>Claim</button>
+                } 
+            </footer>
         </section>
     </>
 }
