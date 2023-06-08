@@ -23,14 +23,7 @@ export const TicketForm = () => {
         event.preventDefault()
         
         // TODO: Create the object to be saved to the API
-        /*
-            {
-                "userId": 3,
-                "description": "Vero est adipisci sed natus quasi consectetur occaecati. Modi maxime sunt officia cumque. Vel at culpa. Sint accusamus deserunt dolorem qui.",
-                "emergency": true,
-                "dateCompleted": ""
-            }
-        */
+        
         const ticketToSendToApi = {
             userId: honeyUserObject.id,
             description: ticket.description,
