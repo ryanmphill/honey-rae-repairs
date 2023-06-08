@@ -9,3 +9,11 @@
     padding: 0.7rem;
     margin: 0.5rem 0;
 }
+
+.ticketEditdesc {
+    width: 80%;
+}
+
+#ticketEdit--description {
+    height: 10rem; 
+  }
